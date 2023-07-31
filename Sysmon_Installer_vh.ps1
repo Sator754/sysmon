@@ -69,3 +69,36 @@ try {
 } catch {
     Throw "Scheduled task creation failed"
 }
+
+
+
+
+# install integration Sysmon to Wazuh for IT SecOps Endpoint protection
+
+$SoftwareName="Wazuh_sysmon_integration"
+$WazuhConfigFile = "C:\Program Files (x86)\ossec-agent\ossec.conf"
+
+
+if ((Test-Path $WazuhConfigFile)) {
+	write-host "File exist"
+	$SEL = Select-String -Path $WazuhConfigFile -Pattern "Add Sysmon Policy monitoring Endpoint IT Security by vh"
+}else{
+	write-host "File not exist"
+	$SEL = "not need to patch"
+}
+
+
+if ($SEL -eq $null)
+{	write-host "Begin patch WazuhConfigFile"
+	Add-Content $WazuhConfigFile ""
+	Add-Content $WazuhConfigFile "<!-- Add Sysmon Policy monitoring Endpoint IT Security by vh -->"
+	Add-Content $WazuhConfigFile "<ossec_config>"
+	Add-Content $WazuhConfigFile "  <localfile>"
+	Add-Content $WazuhConfigFile "    <location>Microsoft-Windows-Sysmon/Operational</location>"
+	Add-Content $WazuhConfigFile "    <log_format>eventchannel</log_format>"
+	Add-Content $WazuhConfigFile "  </localfile>"
+	Add-Content $WazuhConfigFile "</ossec_config>"
+	Add-Content $WazuhConfigFile ""
+	Restart-Service -Name wazuh
+}
+
