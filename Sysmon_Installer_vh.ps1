@@ -97,6 +97,11 @@ if ($SEL -eq $null)
 	Add-Content $WazuhConfigFile "    <location>Microsoft-Windows-Sysmon/Operational</location>"
 	Add-Content $WazuhConfigFile "    <log_format>eventchannel</log_format>"
 	Add-Content $WazuhConfigFile "  </localfile>"
+ 	Add-Content $WazuhConfigFile ""
+	Add-Content $WazuhConfigFile "  <localfile>"
+	Add-Content $WazuhConfigFile "    <location>Microsoft-Windows-PowerShell/Operational</location>"
+	Add-Content $WazuhConfigFile "    <log_format>eventchannel</log_format>"
+	Add-Content $WazuhConfigFile "  </localfile>"
 	Add-Content $WazuhConfigFile "</ossec_config>"
 	Add-Content $WazuhConfigFile ""
 	Restart-Service -Name wazuh
