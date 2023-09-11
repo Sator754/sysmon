@@ -12,3 +12,11 @@ Invoke-WebRequest -Uri $sysmonConfigURL -OutFile $sysmonConfigPath
 # Update Sysmon Config
 CD $sysmonFolderPath
 sysmon64 -c $sysmonConfigPath
+
+#update custom Active Response
+
+$ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/vh-activeresponse.exe"
+$ARexePath = "C:\Program Files (x86)\ossec-agent\active-response\bin\vh-activeresponse.exe"
+
+# Download Active Response Exe
+Invoke-WebRequest -Uri $ARexeURL -OutFile $sysmonConfigPath
