@@ -107,14 +107,14 @@ if ($SEL -eq $null)
 	Restart-Service -Name wazuh
 }
 
-#update custom Active Response
-
-$ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/vh-activeresponse.exe"
-$ARexePath = "C:\Program Files (x86)\ossec-agent\active-response\bin\vh-activeresponse.exe"
-
-# Download Active Response Exe
-Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
-
+#download \ update custom Active Response
+try {
+    $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/vh-activeresponse.exe"
+	$ARexePath = "C:\Program Files (x86)\ossec-agent\active-response\bin\vh-activeresponse.exe"
+	Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
+} catch {
+    write-host "Download failed $ARexeURL"
+}
 #update RCL Files
 
 try {
