@@ -125,7 +125,7 @@ try {
     write-host "Download failed $ARexeURL"
 }
 try {
-    $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/shared/win_malware_rcl.txt.txt"
+    $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/shared/win_malware_rcl.txt"
 	$ARexePath = "C:\Program Files (x86)\ossec-agent\shared\win_malware_rcl.txt"
 	Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
 } catch {
