@@ -59,7 +59,7 @@ try {
     $service = Get-Service -Name $sysmonServiceName -ErrorAction Stop
     Write-Output "Sysmon service exists"
 } catch {
-    Throw "Sysmon service does not exist"
+    Write-Output "Sysmon service does not exist"
 }
 
 # Check if Scheduled Task is Created Successfully
@@ -67,7 +67,7 @@ try {
     $task = Get-ScheduledTask -TaskName "Update_Sysmon_Rules" -ErrorAction Stop
     Write-Output "Scheduled task created successfully"
 } catch {
-    Throw "Scheduled task creation failed"
+    Write-Output "Scheduled task creation failed"
 }
 
 
@@ -113,5 +113,26 @@ $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/vh-activeres
 $ARexePath = "C:\Program Files (x86)\ossec-agent\active-response\bin\vh-activeresponse.exe"
 
 # Download Active Response Exe
-Invoke-WebRequest -Uri $ARexeURL -OutFile $sysmonConfigPath
+Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
 
+#update RCL Files
+
+try {
+    $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/shared/win_applications_rcl.txt"
+	$ARexePath = "C:\Program Files (x86)\ossec-agent\shared\win_applications_rcl.txt"
+	Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
+} catch {
+    write-host "Download failed $ARexeURL"
+}
+try {
+    $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/shared/win_malware_rcl.txt.txt"
+	$ARexePath = "C:\Program Files (x86)\ossec-agent\shared\win_malware_rcl.txt"
+	Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
+} catch {
+    write-host "Download failed $ARexeURL"
+}
+
+
+
+
+Restart-Service -Name wazuh
