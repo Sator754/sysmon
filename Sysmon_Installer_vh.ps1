@@ -132,7 +132,8 @@ try {
     write-host "Download failed $ARexeURL"
 }
 
-
+# create Active Response
+Set-Content "C:\Program Files (x86)\ossec-agent\active-response\bin\taskkill_anydesk.bat" 'taskkill /f /im AnyDesk*'
 
 
 Restart-Service -Name wazuh
