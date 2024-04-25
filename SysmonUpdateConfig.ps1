@@ -19,4 +19,4 @@ $ARexeURL = "https://raw.githubusercontent.com/Sator754/sysmon/main/vh-activeres
 $ARexePath = "C:\Program Files (x86)\ossec-agent\active-response\bin\vh-activeresponse.exe"
 
 # Download Active Response Exe
-Invoke-WebRequest -Uri $ARexeURL -OutFile $sysmonConfigPath
+Invoke-WebRequest -Uri $ARexeURL -OutFile $ARexePath
